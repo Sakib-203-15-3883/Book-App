@@ -50,14 +50,14 @@ const SideBar = () => {
                 ManageBooks
               </p>
             </Sidebar.Item>
-            <Sidebar.Item
+            {/* <Sidebar.Item
               href="#"
               icon={HiUser}
             >
               <p>
                 Users
               </p>
-            </Sidebar.Item>
+            </Sidebar.Item> */}
             {/* <Sidebar.Item
               href="#"
               icon={HiShoppingBag}
@@ -66,14 +66,14 @@ const SideBar = () => {
                 Products
               </p>
             </Sidebar.Item> */}
-            <Sidebar.Item
+            {/* <Sidebar.Item
               href="/login"
               icon={HiArrowSmRight}
             >
               <p>
                 Sign In
               </p>
-            </Sidebar.Item>
+            </Sidebar.Item> */}
             <Sidebar.Item
               href="/logout"
               icon={HiTable}
@@ -84,14 +84,14 @@ const SideBar = () => {
             </Sidebar.Item>
           </Sidebar.ItemGroup>
           <Sidebar.ItemGroup>
-            <Sidebar.Item
+            {/* <Sidebar.Item
               href="#"
               icon={HiChartPie}
             >
               <p>
                 Upgrade to Pro
               </p>
-            </Sidebar.Item>
+            </Sidebar.Item> */}
             <Sidebar.Item
               href="#"
               icon={HiViewBoards}

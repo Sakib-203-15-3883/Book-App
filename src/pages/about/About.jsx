@@ -2,10 +2,10 @@ import React from 'react';
 
 const AboutPage = () => {
   return (
-    <div className="bg-gradient-to-b from-blue-200 to-blue-400 min-h-screen">
+    <div className=" min-h-screen">
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-4xl font-bold text-center text-white mb-8">About Us</h1>
+          <h1 className="text-4xl font-bold text-center  mb-8">About Us</h1>
 
 
           <div className="bg-white bg-opacity-75 shadow-md  rounded-lg">

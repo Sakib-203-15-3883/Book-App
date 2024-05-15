@@ -4,6 +4,10 @@ import { useEffect, useState } from "react";
 import { FaXmark, FaBars, FaBarsStaggered, FaBlog } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { LuBookOpen } from "react-icons/lu";
+import { IoSearchSharp } from "react-icons/io5";
+
+import Search from "../Search/Search";
+
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -33,8 +37,11 @@ const Navbar = () => {
     { link: "Home", path: "/" },
     { link: "About", path: "/about" },
     { link: "Shop", path: "/shop" },
+  
+
     { link: "Sell Your Book", path: "/admin/dashboard" },
     // { link: "Blog", path: "/blog" },
+    { link: <IoSearchSharp className="text-3xl" />, path: "/search" },
   ];
   return (
     <header className="w-full bg-transparent fixed top-0 left-0 right-0 transition-all ease-in duration-300">
@@ -45,10 +52,10 @@ const Navbar = () => {
         <div className="flex justify-between items-center text-base gap-12">
           <Link
             to="/"
-            className="text-4xl font-bold text-black flex items-center gap-8"
+            className="text-xl font-bold text-black flex items-center gap-8"
           >
             <LuBookOpen className="inline-block" />
-            Books
+            Astha Prokashon
           </Link>
 
           <ul className="md:flex space-x-12 hidden navitems">

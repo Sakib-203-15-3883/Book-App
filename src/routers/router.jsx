@@ -2,6 +2,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "../App";
 import { Home } from "../pages/Home/Home";
 import Shop from "../pages/Shop/Shop";
+import Search from "../pages/Search/Search";
+
 import { DashboardLayout } from "../Dashboard/DashboardLayout";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import Login from "../pages/Login";
@@ -26,10 +28,19 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home />
       },
+
       {
         path: "/shop",
         element: <Shop />,
       },
+
+      {
+        path: "/search",
+        element: <Search/>,
+      },
+     
+
+
       {
         path: "/book/:id",
         element: <SignleBook />,
