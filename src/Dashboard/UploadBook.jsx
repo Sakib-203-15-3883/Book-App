@@ -224,7 +224,7 @@ const UploadBook = () => {
             id="price"
             placeholder="Price"
             required
-            type="text"
+            type="number"
             name='price'
             value={price}
             onChange={handlePriceChange}

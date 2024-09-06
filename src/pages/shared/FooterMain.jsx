@@ -10,9 +10,12 @@ const FooterMain = () => {
           <div>
             <Footer.Title title="Company" />
             <Footer.LinkGroup col>
+
+
               <Footer.Link href="#">
                 About
               </Footer.Link>
+              
               <Footer.Link href="#">
                 Careers
               </Footer.Link>

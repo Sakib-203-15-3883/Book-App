@@ -59,9 +59,9 @@ const BookCards = ({headline, books}) => {
 
                                 <div className='bg-gray-100 p-8 rounded-lg relative'>
                                     <img src={book.imageURL} alt="" className='w-full' />
-                                    <div className='absolute top-3 right-3 bg-blue-700 hover:bg-black p-2 rounded '>
+                                    {/* <div className='absolute top-3 right-3 bg-blue-700 hover:bg-black p-2 rounded '>
                                         <FaCartShopping className='w-4 h-4 text-white'/>
-                                    </div>
+                                    </div> */}
                                 </div>
 
                                 <div className='mt-5 mb-8 text-left space-y-2 flex justify-between items-start'>
@@ -70,7 +70,7 @@ const BookCards = ({headline, books}) => {
                                         <p>{book.authorName}</p>
                                     </div>
                                     <div>
-                                        <p className='font-bold text-blue-700'>{book.price}</p>
+                                        <p className='font-bold text-blue-700'>{book.price} BDT</p>
                                     </div>
                                 </div>
                             </Link>

@@ -25,7 +25,22 @@ const AuthProvider = ({children}) => {
 
     const login = (email, password) =>{
         setLoading(true);
-        return signInWithEmailAndPassword(auth, email, password);
+        return signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            // Update user state with the user's data including email
+            setUser({
+                uid: userCredential.user.uid,
+                email: userCredential.user.email,
+                displayName: userCredential.user.displayName,
+                // Add other user properties you need
+            });
+            setLoading(false);
+            return userCredential;
+        })
+        .catch((error) => {
+            setLoading(false);
+            throw error; // Rethrow the error to handle it in the component
+        });
     }
 
     const logOut = () =>{

@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthProvider';
 
 const Search = () => {
+  const { loading, user } = useContext(AuthContext);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedBook, setSelectedBook] = useState(null);
   const [books, setBooks] = useState([]);
   const [sortOrder, setSortOrder] = useState("ascending");
+  const [expanded, setExpanded] = useState({});
 
+  const navigate = useNavigate();
   useEffect(() => {
     // Fetch data from the API
     fetchBooks();
@@ -55,22 +60,71 @@ const Search = () => {
 
   const filteredAndSortedBooks = sortedBooks(filterBooksArray);
 
+  // Toggle description
+  const toggleDescription = (id) => {
+    setExpanded(prevState => ({ ...prevState, [id]: !prevState[id] }));
+  };
 
+  const addToCart = async (bookId) => {
+    if (!user) {
+      console.error('User not authenticated');
+      return;
+    }
+
+    try {
+      const userId = user.uid;
+      const response = await fetch('http://localhost:5000/cart', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId, bookId }),
+      });
+
+      if (response.ok) {
+        console.log('Book added to cart successfully');
+        navigate("/cart");
+      } else {
+        console.error('Failed to add book to cart');
+      }
+    } catch (error) {
+      console.error('Error adding to cart:', error);
+    }
+  };
 
   const BookCard = ({ book }) => {
-
     const handleBuyClick = () => {
-      // Implement buy functionality here
       console.log(`Buy ${book.bookTitle}`);
     };
+
     return (
-      <div className="bg-white mx-4 shadow-md mt-2 px-6 py-4 mb-4 border border-blue-500 rounded-2xl flex items-center">
-        <img src={book.imageURL} alt={book.bookTitle} className="w-40 h-30 mr-8 rounded-md " />
-        <div>
+      <div className="bg-white shadow-md mt-2 px-4 py-4 border border-blue-500 rounded-2xl flex flex-col md:flex-row items-center mb-8 mx-2 md:mx-4">
+        <img src={book.imageURL} alt={book.bookTitle} className="w-full md:w-40 h-30 mb-4 md:mb-0 md:mr-8 rounded-md" />
+        <div className="flex flex-col items-start">
           <h2 className="text-lg font-bold mb-1">{book.bookTitle}</h2>
           <p className="text-gray-600 mb-1">{book.authorName}</p>
           <p className="text-gray-800 font-semibold">{book.price}</p>
-          <button onClick={handleBuyClick} className='bg-blue-700 px-8 py-4 text-white font-medium hover:bg-black transition-all ease-in duration-200 rounded-xl text-sm mt-6 '>Buy</button>
+          <h5 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+            <p>
+              {expanded[book._id] ? book.bookDescription : `${book.bookDescription.substring(0, 100)}...`}
+              <button onClick={() => toggleDescription(book._id)} className="text-blue-500">
+                {expanded[book._id] ? 'Read Less' : 'Read More'}
+              </button>
+            </p>
+          </h5>
+          <div className="flex flex-col md:flex-row gap-4 mt-4">
+            <Link to={`/buy/${book._id}`} className="w-full md:w-auto">
+              <button className="w-full md:w-auto bg-blue-700 px-8 py-2 text-white font-medium hover:bg-black transition-all ease-in duration-200 rounded-xl text-sm">
+                Buy Now
+              </button>
+            </Link>
+            <button
+              onClick={() => addToCart(book._id)}
+              className="w-full md:w-auto bg-green-700 text-white font-semibold px-6 py-2 hover:bg-black transition-all duration-300 rounded-xl"
+            >
+              Add to Cart
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -78,16 +132,15 @@ const Search = () => {
 
   return (
     <>
-      <div className="grid place-content-center m-10 mb-10">
+      <div className="grid place-content-center m-10 mb-10 mt-32">
         <div className="relative">
           <input
             type="text"
             placeholder="Search Books"
             value={searchQuery}
             onChange={handleSearchQuery}
-            className="w-80 text-xl p-4 pl-12 bg-white border-4 border-gray-300 rounded-3xl focus:outline-none mt-16 font-bold"
+            className="w-full md:w-80 text-xl p-4 pl-12 bg-white border-4 border-gray-300 rounded-3xl focus:outline-none mt-16 font-bold"
           />
-        
         </div>
       </div>
 
@@ -115,6 +168,6 @@ const Search = () => {
       </div>
     </>
   );
-}
+};
 
 export default Search;

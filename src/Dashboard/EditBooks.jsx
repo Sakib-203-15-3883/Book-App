@@ -227,7 +227,7 @@ const EditBooks = () => {
             id="price"
             placeholder="Price"
             required
-            type="text"
+            type="number"
             name='price'
             className='w-full'
             value={price}

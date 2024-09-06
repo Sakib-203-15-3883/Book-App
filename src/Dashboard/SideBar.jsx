@@ -9,6 +9,14 @@ import MobileDashboard from './MobileDashboard';
 
 const SideBar = () => {
   const {user} = useContext(AuthContext)
+
+    // Function to get username from email
+    const getUsernameFromEmail = (email) => {
+      if (!email) return "Demo User"; // Default if email is not available
+      return email.split('@')[0]; // Split email at '@' and take the part before it
+  }
+
+
   return (
     <div className=''>
       <Sidebar aria-label="Sidebar with content separator example" className='hidden md:block'>
@@ -21,16 +29,19 @@ const SideBar = () => {
           imgAlt="logo"
         >
           <p>
-            {user?.displayName || "Account" }
+            {user ? getUsernameFromEmail(user.email) : "Demo User"}
           </p>
+          {/* <p>
+            {user?.email || "demo user " }
+          </p> */}
         </Sidebar.Logo>
         <Sidebar.Items>
           <Sidebar.ItemGroup>
             <Sidebar.Item
-              href="/admin/dashboard"
+              href="/order-list"
               icon={HiChartPie}>
               <p>
-                Dashboard
+               Your Pending ordered list
               </p>
             </Sidebar.Item>
             <Sidebar.Item
@@ -42,14 +53,14 @@ const SideBar = () => {
               </p>
             </Sidebar.Item>
 
-            <Sidebar.Item
+            {/* <Sidebar.Item
               href="/admin/dashboard/manage"
               icon={HiInbox}
             >
               <p>
                 ManageBooks
               </p>
-            </Sidebar.Item>
+            </Sidebar.Item> */}
             {/* <Sidebar.Item
               href="#"
               icon={HiUser}
